@@ -9,5 +9,7 @@
  * @author rachid dev
  */
 public class FirstClass {
-    
+    public static void main(String Args[]){
+        System.out.println("Firs Class");
+    }
 }
