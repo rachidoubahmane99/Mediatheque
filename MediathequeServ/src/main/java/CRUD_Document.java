@@ -1,41 +1,37 @@
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import model.Document;
 import model.Livre;
+import DbConnection.DbConnection;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author rachad
- */
 public class CRUD_Document {
+    Connection con = null;
+    public Statement stmt;
     
-    Statement stmt;
     
-    public void CRUD_Document(String username, String password) throws SQLException {
-    
-    Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/mediatheque",
-                         username,
-                         password);
-   
-    stmt = con.createStatement();
+    /*public void CRUD_Document() throws SQLException {
+   try (Connection con = DbConnection.getConnection();)
+        {
+             
+            System.out.println("Connection sucess");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
 
 }
-    
+    */
     boolean ajouterDocument(Document d) throws SQLException{
         if (d instanceof Livre){
+                   con = DbConnection.getConnection();
+                   stmt = con.createStatement();
          String query="insert into livre(isbn, titre, auteur, edition, editeur,nbpages,url) values ('"+d.getIsbn()+"','"+d.getTitre()+"','"+d.getAuteurs()[0]+"','"+d.getEdition()+"','"+d.getEditeur()+"','"+((Livre)d).getNbPages()+"','"+d.getUrl()+"')";
+         //String query="insert into livre(isbn, titre, auteur, edition, editeur,nbpages,url) values ('isbnnn','tiitre de livre','hamid',2019,'hassan',100,'link here')";
          int nbUpdated = stmt.executeUpdate(query);
          return nbUpdated!=0;
         }
@@ -47,7 +43,8 @@ public class CRUD_Document {
     
     
      LinkedList<Livre> getLivreByTitre(String titre) throws SQLException{
-
+     con = DbConnection.getConnection();
+                   stmt = con.createStatement();
         String query="select * from livre where titre like '"+titre+"' ";
         ResultSet rs=stmt.executeQuery(query);
         
@@ -69,11 +66,13 @@ public class CRUD_Document {
     }
      
        Livre getLivreByISBN(String isbn) throws SQLException{
-
+ con = DbConnection.getConnection();
+                   stmt = con.createStatement();
         String query="select * from livre where isbn like'"+isbn+"' ";
         ResultSet rs=stmt.executeQuery(query);
        
         if (rs.next()) {
+            
            String titre=rs.getString("titre");
            String editeur=rs.getString("editeur");
            String auteur=rs.getString("auteur");
@@ -82,12 +81,41 @@ public class CRUD_Document {
            String auteurs[]={auteur};
            String url=rs.getString("url");
            Livre l = new Livre(titre, editeur, edition, isbn,auteurs,url,nbpages);
+           //l.toString();
+            //System.out.println(url);
            return l;
        }
         return null;
 
     }
        
+       
+       public static void  main(String args[]) throws SQLException{
+          CRUD_Document doc = new CRUD_Document();
+          String[] auteur={"auteur"}; 
+          //First Document
+          
+       Document d1= new Livre("titre de livre","editeur",2019,"isbn66",auteur,"url",100);
+       boolean b;
+       Livre  d2;
+        //b = doc.ajouterDocument(d1);
+          // System.out.println(b);
+           
+          // d2= doc.getLivreByISBN("isbnnn");
+           //System.out.println(d2.toString());
+           
+           LinkedList<Livre> llist;
+           
+           llist=doc.getLivreByTitre("tiitre de livre");
+
+    // récupérer le ListIterator
+    java.util.ListIterator lIterator = llist.listIterator();
+            while(lIterator.hasNext()){
+       System.out.println(lIterator.next().toString());
+    }
+          
+           
+       }
 
     
 }

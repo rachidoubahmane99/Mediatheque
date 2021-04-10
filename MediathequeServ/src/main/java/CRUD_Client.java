@@ -7,10 +7,7 @@ import model.Client;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author rachad
- */
+
 public class CRUD_Client {
     
     boolean Ajouter(Client c){

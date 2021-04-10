@@ -1,5 +1,5 @@
 
-import Model.*;
+import model.*;
 
 
 public class Controller {
