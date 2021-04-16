@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Client;
+import model.Etudiant;
+import model.Professeur;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -61,7 +63,77 @@ public class CRUD_Client {
             }
         return true; 
     }
+      
+      
+      public Etudiant getEtudiantByCne(String cne) throws SQLException{
+          con = DbConnection.getConnection();
+                   stmt = con.createStatement();
+
+         //String sql = "SELECT * FROM personne Where cin = ? and password = ?";
+         
+         String query="select * from etudiant where  cne='"+cne+"' ";
+        ResultSet rs=stmt.executeQuery(query);
+        Etudiant e =null;
+          if (rs.next()) {
+              String login = rs.getString("logn");
+            String mdp = rs.getString("password");
+            String cin = rs.getString("cin");
+           String nom=rs.getString("nom");
+           String prenom=rs.getString("prenom");
+           String Cne=rs.getString("cne");
+  
+            e = new Etudiant(login, mdp, cin, nom, prenom,Cne);
+          }
+          return e;
+      }
     
-    
-    
+      public Professeur getProfesseurByCin(String cin) throws SQLException{
+          con = DbConnection.getConnection();
+                   stmt = con.createStatement();
+
+         //String sql = "SELECT * FROM personne Where cin = ? and password = ?";
+         
+         String query="select * from professeur where  cin='"+cin+"' ";
+        ResultSet rs=stmt.executeQuery(query);
+        
+        Professeur p =null;
+          if (rs.next()) {
+              String login = rs.getString("login");
+            String mdp = rs.getString("password");
+            String Cin = rs.getString("cin");
+           String nom=rs.getString("nom");
+           String prenom=rs.getString("prenom");
+           String matricule=rs.getString("matricule");
+  
+            p = new Professeur(login, prenom, Cin, nom, prenom, matricule);
+          }
+          return p;
+      }
+      
+      
+      
+       boolean SupprimerEtudiant(String cne) throws SQLException{
+         con = DbConnection.getConnection();
+         stmt = con.createStatement();
+        String sql = "delete from etudiant where cne='"+cne+"'";
+        int etat =stmt.executeUpdate(sql);
+        if (etat ==1) {
+            return  true;
+        }
+        return false;
+    }
+       
+       boolean SupprimerProfesseur(String cin) throws SQLException{
+         con = DbConnection.getConnection();
+         stmt = con.createStatement();
+        String sql = "delete from professeur where cne='"+cin+"'";
+        int etat =stmt.executeUpdate(sql);
+        if (etat ==1) {
+            return  true;
+        }
+        return false;
+    }
+      
 }
+    
+    

@@ -41,6 +41,17 @@ public class CRUD_Document {
        
     }
     
+    boolean SupprimerDocument(String isbn) throws SQLException{
+         con = DbConnection.getConnection();
+         stmt = con.createStatement();
+        String sql = "delete from livre where isbn='"+isbn+"'";
+        int etat =stmt.executeUpdate(sql);
+        if (etat ==1) {
+            return  true;
+        }
+        return false;
+    }
+    
     
      LinkedList<Livre> getLivreByTitre(String titre) throws SQLException{
      con = DbConnection.getConnection();
