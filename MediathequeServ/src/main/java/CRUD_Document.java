@@ -65,6 +65,56 @@ public class CRUD_Document {
        return livres;
     }
      
+     
+     
+     LinkedList<Livre> getLivreByEditeur(String editeurName) throws SQLException{
+     con = DbConnection.getConnection();
+                   stmt = con.createStatement();
+        String query="select * from livre where editeur like '"+editeurName+"' ";
+        ResultSet rs=stmt.executeQuery(query);
+        
+        LinkedList<Livre> livres= new   LinkedList<Livre> ();
+        
+        while (rs.next()) {
+            String titre = rs.getString("titre");
+           String isbn=rs.getString("isbn");
+           String editeur=rs.getString("editeur");
+           String auteur=rs.getString("auteur");
+           int edition=rs.getInt("edition");
+           int nbpages=rs.getInt("nbpages");
+           String auteurs[]={auteur};
+           String url=rs.getString("url");
+           Livre l = new Livre(titre, editeur, edition, isbn,auteurs,url,nbpages);
+           livres.add(l);
+       }
+
+       return livres;
+    }
+     
+        LinkedList<Livre> getLivreByAuteur(String auteurName) throws SQLException{
+     con = DbConnection.getConnection();
+                   stmt = con.createStatement();
+        String query="select * from livre where auteur like '"+auteurName+"' ";
+        ResultSet rs=stmt.executeQuery(query);
+        
+        LinkedList<Livre> livres= new   LinkedList<Livre> ();
+        
+        while (rs.next()) {
+            String titre = rs.getString("titre");
+           String isbn=rs.getString("isbn");
+           String editeur=rs.getString("editeur");
+           String auteur=rs.getString("auteur");
+           int edition=rs.getInt("edition");
+           int nbpages=rs.getInt("nbpages");
+           String auteurs[]={auteur};
+           String url=rs.getString("url");
+           Livre l = new Livre(titre, editeur, edition, isbn,auteurs,url,nbpages);
+           livres.add(l);
+       }
+
+       return livres;
+    }
+     
        Livre getLivreByISBN(String isbn) throws SQLException{
  con = DbConnection.getConnection();
                    stmt = con.createStatement();
