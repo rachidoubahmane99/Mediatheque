@@ -26,10 +26,15 @@ public class ThreadServeur implements Runnable{
 
     Socket soc;
     static boolean repeat=true;
-    static String nickname;
-    
-    public ThreadServeur(Socket soc) {
+     String nickname;
+      String login;
+     String message= null;
+    static String mdp;
+    public ThreadServeur(Socket soc, String type, String login) {
          this.soc=soc;
+           this.nickname = type;
+         this.login= login;
+       
     }
     
     
@@ -44,29 +49,21 @@ public class ThreadServeur implements Runnable{
             OutputStreamWriter sortie = new OutputStreamWriter (flux1) ;
             InputStream flux2=soc.getInputStream();
             BufferedReader entree = new BufferedReader (new InputStreamReader (flux2));
-            
+            /*
             nickname=entree.readLine();
- 
+            sortie.flush();
+            login=entree.readLine();
+             System.out.println(nickname+": "+login+" ") ;
+             sortie.flush();
+            mdp=entree.readLine();
+             System.out.println(nickname+": "+login+" :"+mdp) ;
+*/
             while (repeat){
-                String message=entree.readLine();
-                System.out.println(nickname+": "+message) ;
+           
                  String location=(entree.readLine());
                  
-                System.out.println(nickname+": "+message) ;
-                switch (message){
-                    case "Tell":
-                        //tell(entree,sortie);
-                        System.out.println("Tell choised)");
-                        break;
-                    case "Learn":
-                        //learn(entree,sortie);
-                          System.out.println("Learn choised)");
-                        break;
-                    case "Quit":
-                        //quit(entree,sortie);
-                          System.out.println("leave choised)");
-                        soc.close();
-                }
+                System.out.println(nickname+": "+login+" : location :"+location) ;
+          
             }
         } catch (IOException ex) {
             Logger.getLogger(ThreadServeur.class.getName()).log(Level.SEVERE, null, ex);

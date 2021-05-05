@@ -75,7 +75,7 @@ public class CRUD_Client {
         ResultSet rs=stmt.executeQuery(query);
         Etudiant e =null;
           if (rs.next()) {
-              String login = rs.getString("logn");
+              String login = rs.getString("login");
             String mdp = rs.getString("password");
             String cin = rs.getString("cin");
            String nom=rs.getString("nom");

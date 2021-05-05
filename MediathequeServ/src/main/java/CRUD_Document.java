@@ -155,12 +155,11 @@ public class CRUD_Document {
           CRUD_Document doc = new CRUD_Document();
           String[] auteur={"auteur"}; 
           //First Document
-          
        Document d1= new Livre("titre de livre","editeur",2019,"isbn66",auteur,"url",100);
        boolean b;
        Livre  d2;
-        //b = doc.ajouterDocument(d1);
-          // System.out.println(b);
+        b = doc.ajouterDocument(d1);
+           System.out.println(b);
            
           // d2= doc.getLivreByISBN("isbnnn");
            //System.out.println(d2.toString());
