@@ -57,13 +57,15 @@ public class Mediatheque implements Serializable{
             Socket soc = sersoc.accept();
             Mediatheque md = new Mediatheque();
             //System.out.println("Server instance "+md.counter);
-            String IotMaps = "KindleGps"+md.counter;
-            System.out.println("IotMaps :"+IotMaps+" : connected");
+            
             flux1 = soc.getOutputStream();
             OutputStreamWriter sortie = new OutputStreamWriter (flux1) ;
             InputStream flux2=soc.getInputStream();
             BufferedReader entree = new BufferedReader (new InputStreamReader (flux2));
-            
+            String IotMaps = "KindleGps"+md.counter;
+            System.out.println("IotMaps :"+IotMaps+" : connected");
+            //sortie.write(IotMaps);
+
             type=entree.readLine();
             sortie.flush();
             login=entree.readLine();

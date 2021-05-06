@@ -58,6 +58,7 @@ public class ThreadServeur implements Runnable{
             mdp=entree.readLine();
              System.out.println(nickname+": "+login+" :"+mdp) ;
 */
+            //sortie.write("hey");
             while (repeat){
            
                  String location=(entree.readLine());
